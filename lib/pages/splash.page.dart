@@ -37,82 +37,86 @@ class _SplashPageState extends State<SplashPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
-        child: Container(
-          width: double.infinity,
-          decoration: const BoxDecoration(
-            image: DecorationImage(
-              image: AssetImage("assets/images/img1.jpg"),
-              fit: BoxFit.cover,
-            ),
-          ),
-          child: Column(
-            children: [
-              const SizedBox(height: 250.0),
-              Image.asset('assets/images/Logo.png',
-                  height: 100, width: 150, fit: BoxFit.fill),
-              Container(
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      const SizedBox(height: 230.0),
-                      ClipRRect(
-                        borderRadius:
-                            const BorderRadius.all(Radius.circular(10)),
-                        child: SizedBox(
-                          width: 329,
-                          height: 56,
-                          child: ElevatedButton(
-                            onPressed: () {},
-                            style: ElevatedButton.styleFrom(
-                              backgroundColor: Colors.deepOrange,
-                            ),
-                            child: const Text(
-                              'Register',
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 20,
-                                fontFamily: 'Poppins',
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                      const SizedBox(
-                        height: 15,
-                      ),
-                      ClipRRect(
-                        borderRadius:
-                            const BorderRadius.all(Radius.circular(10)),
-                        child: SizedBox(
-                          width: 329,
-                          height: 56,
-                          child: TextButton(
-                            onPressed: () {},
-                            child: const Text(
-                              'Sign In',
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 20,
-                                fontFamily: 'Poppins',
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                      const SizedBox(
-                        height: 15,
-                      ),
-                    ],
-                  ),
+        child: Stack(
+          children: [
+            Container(
+              width: double.infinity,
+              decoration: const BoxDecoration(
+                image: DecorationImage(
+                  image: AssetImage("assets/images/img1.jpg"),
+                  fit: BoxFit.cover,
                 ),
               ),
-            ],
-          ),
+              child: Column(
+                children: [
+                  const SizedBox(height: 250.0),
+                  Image.asset('assets/images/Logo.png',
+                      height: 100, width: 150, fit: BoxFit.fill),
+                  Container(
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          const SizedBox(height: 230.0),
+                          ClipRRect(
+                            borderRadius:
+                                const BorderRadius.all(Radius.circular(10)),
+                            child: SizedBox(
+                              width: 329,
+                              height: 56,
+                              child: ElevatedButton(
+                                onPressed: () {},
+                                style: ElevatedButton.styleFrom(
+                                  backgroundColor: Colors.deepOrange,
+                                ),
+                                child: const Text(
+                                  'Register',
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 20,
+                                    fontFamily: 'Poppins',
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                          const SizedBox(
+                            height: 15,
+                          ),
+                          ClipRRect(
+                            borderRadius:
+                                const BorderRadius.all(Radius.circular(10)),
+                            child: SizedBox(
+                              width: 329,
+                              height: 56,
+                              child: TextButton(
+                                onPressed: () {},
+                                child: const Text(
+                                  'Sign In',
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 20,
+                                    fontFamily: 'Poppins',
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                          const SizedBox(
+                            height: 15,
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ],
         ),
       ),
     );
