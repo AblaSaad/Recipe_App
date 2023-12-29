@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:dots_indicator/dots_indicator.dart';
+import 'package:recipe_app_/widget/fresh_recipes_widget.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -29,124 +30,82 @@ class _HomePageState extends State<HomePage> {
             onPressed: () {},
             icon: Icon(Icons.menu),
           )),
-      body: SafeArea(
-        child: Center(
-          child: Column(
-            children: [
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Row(
+      body: Padding(
+        padding: const EdgeInsets.all(20),
+        child: SafeArea(
+          child: SingleChildScrollView(
+            child: Column(
+              children: [
+                Row(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     Text(
                       'What Would You like to cook Today?',
-                      style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontFamily: 'poppions',
-                          fontSize: 15),
+                      style:
+                          TextStyle(fontWeight: FontWeight.bold, fontSize: 12),
                       textAlign: TextAlign.right,
                     ),
                   ],
                 ),
-              ),
-              SizedBox(
-                height: 20,
-              ),
-              Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: SizedBox(
-                    width: 329,
-                    height: 35,
-                    child: TextFormField(
-                      decoration: InputDecoration(
-                        border: OutlineInputBorder(
-                          borderRadius:
-                              const BorderRadius.all(Radius.circular(10)),
-                        ),
-                        label: Text(
-                          'Search for recipes',
-                          style: TextStyle(color: Color.fromARGB(66, 0, 0, 0)),
-                        ),
-                        prefixIcon: Icon(Icons.search),
-                      ),
-                    ),
-                  )),
-              SizedBox(
-                height: 25,
-              ),
-              Stack(
-                children: [
-                  CarouselSlider(
-                    carouselController: carouselControllerEx,
-                    options: CarouselOptions(
-                      height: 200.0,
-                      autoPlay: true,
-                      viewportFraction: 0.75,
-                      enlargeCenterPage: true,
-                      enlargeFactor: 0.3,
-                      enlargeStrategy: CenterPageEnlargeStrategy.height,
-                      onPageChanged: (index, _) {
-                        sliderIndex = index;
-
-                        setState(() {});
-                      },
-                    ),
-                    items: listValue.map((i) {
-                      return Container(
-                          width: MediaQuery.of(context).size.width,
-                          margin: EdgeInsets.symmetric(horizontal: 5.0),
-                          decoration: BoxDecoration(color: Colors.amber),
-                          child: Text(
-                            'text $i',
-                            style: TextStyle(fontSize: 16.0),
-                          ));
-                    }).toList(),
-                  ),
-                  Center(
-                    heightFactor: 5,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        IconButton(
-                          onPressed: () {
-                            // Use the controller to change the current page
-                            carouselControllerEx.previousPage();
-                          },
-                          icon: Icon(Icons.arrow_back_ios_new_outlined),
-                        ),
-                        IconButton(
-                          onPressed: () {
-                            // Use the controller to change the current page
-                            carouselControllerEx.nextPage();
-                          },
-                          icon: Icon(Icons.arrow_forward_ios_outlined),
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-              DotsIndicator(
-                dotsCount: listValue.length,
-                position: sliderIndex,
-                onTap: (position) async {
-                  await carouselControllerEx.animateToPage(position);
-                  sliderIndex = position;
-                  setState(() {});
-                },
-                decorator: DotsDecorator(
-                  size: const Size.square(9.0),
-                  activeSize: const Size(18.0, 9.0),
-                  activeShape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(5.0)),
+                SizedBox(
+                  height: 10,
                 ),
-              ),
-              SizedBox(
-                height: 20,
-              ),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Row(
+                Align(
+                  alignment: Alignment.centerLeft,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      Container(
+                          height: 40,
+                          width: 250,
+                          decoration: BoxDecoration(
+                            color: Colors.grey.shade100,
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 5,
+                            vertical: 5,
+                          ),
+                          child: Row(children: const [
+                            Icon(
+                              Icons.search,
+                              color: Colors.grey,
+                            ),
+                            SizedBox(width: 10),
+                            Flexible(
+                              flex: 4,
+                              child: TextField(
+                                decoration: InputDecoration(
+                                  labelText: "Search for recipes",
+                                  hintStyle: TextStyle(
+                                      fontSize: 8,
+                                      color:
+                                          Color.fromARGB(255, 158, 158, 158)),
+                                  border: InputBorder.none,
+                                ),
+                              ),
+                            ),
+                          ])),
+                      Container(
+                          height: 40,
+                          width: 40,
+                          decoration: BoxDecoration(
+                            color: Colors.grey.shade100,
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 10,
+                            vertical: 5,
+                          ),
+                          child: Image(
+                              image: AssetImage('assets/images/filter.png')))
+                    ],
+                  ),
+                ),
+                SizedBox(
+                  height: 15,
+                ),
+                Row(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: const [
                     Text(
@@ -156,11 +115,82 @@ class _HomePageState extends State<HomePage> {
                     ),
                   ],
                 ),
-              ),
-              SizedBox(
-                height: 25,
-              ),
-            ],
+                SizedBox(
+                  height: 5,
+                ),
+                Stack(
+                  children: [
+                    CarouselSlider(
+                      carouselController: carouselControllerEx,
+                      options: CarouselOptions(
+                        height: 200.0,
+                        autoPlay: true,
+                        viewportFraction: 0.75,
+                        enlargeCenterPage: true,
+                        enlargeFactor: 0.3,
+                        enlargeStrategy: CenterPageEnlargeStrategy.height,
+                        onPageChanged: (index, _) {
+                          sliderIndex = index;
+
+                          setState(() {});
+                        },
+                      ),
+                      items: listValue.map((i) {
+                        return Container(
+                            width: MediaQuery.of(context).size.width,
+                            margin: EdgeInsets.symmetric(horizontal: 5.0),
+                            decoration: BoxDecoration(color: Colors.amber),
+                            child: Text(
+                              'text $i',
+                              style: TextStyle(fontSize: 16.0),
+                            ));
+                      }).toList(),
+                    ),
+                    Center(
+                      heightFactor: 5,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          IconButton(
+                            onPressed: () {
+                              // Use the controller to change the current page
+                              carouselControllerEx.previousPage();
+                            },
+                            icon: Icon(Icons.arrow_back_ios_new_outlined),
+                          ),
+                          IconButton(
+                            onPressed: () {
+                              // Use the controller to change the current page
+                              carouselControllerEx.nextPage();
+                            },
+                            icon: Icon(Icons.arrow_forward_ios_outlined),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+                DotsIndicator(
+                  dotsCount: listValue.length,
+                  position: sliderIndex,
+                  onTap: (position) async {
+                    await carouselControllerEx.animateToPage(position);
+                    sliderIndex = position;
+                    setState(() {});
+                  },
+                  decorator: DotsDecorator(
+                    size: const Size.square(9.0),
+                    activeSize: const Size(18.0, 9.0),
+                    activeShape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(5.0)),
+                  ),
+                ),
+                SizedBox(
+                  height: 15,
+                ),
+                Align(alignment: Alignment.centerLeft, child: FreshRecipes()),
+              ],
+            ),
           ),
         ),
       ),
