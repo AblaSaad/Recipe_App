@@ -20,15 +20,9 @@ class FreshRecipes extends StatelessWidget {
                   width: 130,
                   height: 210,
                   decoration: BoxDecoration(
-                      color: Color.fromARGB(208, 255, 255, 255),
-                      borderRadius: BorderRadius.circular(10),
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.grey.withOpacity(0.5),
-                          spreadRadius: 3,
-                          offset: Offset(0, 3),
-                        )
-                      ]),
+                    color: Color(0xffF7F8FC),
+                    borderRadius: BorderRadius.circular(10),
+                  ),
                   child: Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 10),
                       child: Column(
@@ -138,15 +132,9 @@ class FreshRecipes extends StatelessWidget {
                   width: 130,
                   height: 210,
                   decoration: BoxDecoration(
-                      color: Color.fromARGB(208, 255, 255, 255),
-                      borderRadius: BorderRadius.circular(10),
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.grey.withOpacity(0.5),
-                          spreadRadius: 3,
-                          offset: Offset(0, 3),
-                        )
-                      ]),
+                    color: Color(0xffF7F8FC),
+                    borderRadius: BorderRadius.circular(10),
+                  ),
                   child: Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 10),
                       child: Column(

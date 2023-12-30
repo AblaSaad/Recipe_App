@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors
+// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
@@ -40,9 +40,26 @@ class _HomePageState extends State<HomePage> {
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     Text(
+                      'Bonjour, Emma',
+                      style: TextStyle(
+                          fontWeight: FontWeight.normal,
+                          fontSize: 8,
+                          fontFamily: 'Hellix medium 12'),
+                      textAlign: TextAlign.right,
+                    ),
+                  ],
+                ),
+                SizedBox(
+                  height: 5,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Text(
                       'What Would You like to cook Today?',
-                      style:
-                          TextStyle(fontWeight: FontWeight.bold, fontSize: 12),
+                      style: TextStyle(
+                          fontFamily: 'AbrilFatface-Regular 20',
+                          color: Color(0xff1F222B)),
                       textAlign: TextAlign.right,
                     ),
                   ],
@@ -76,11 +93,11 @@ class _HomePageState extends State<HomePage> {
                               flex: 4,
                               child: TextField(
                                 decoration: InputDecoration(
-                                  labelText: "Search for recipes",
+                                  hintText: "Search for recipes",
                                   hintStyle: TextStyle(
-                                      fontSize: 8,
-                                      color:
-                                          Color.fromARGB(255, 158, 158, 158)),
+                                      fontFamily: 'Hellix_Regular ',
+                                      fontSize: 12,
+                                      color: Color(0xffB2B7C6)),
                                   border: InputBorder.none,
                                 ),
                               ),
@@ -105,15 +122,24 @@ class _HomePageState extends State<HomePage> {
                 SizedBox(
                   height: 15,
                 ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: const [
-                    Text(
-                      "Today's Fresh Recipes",
-                      style:
-                          TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
-                    ),
-                  ],
+                Align(
+                  alignment: Alignment.topLeft,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: const [
+                      Text(
+                        "Today's Fresh Recipes",
+                        style: TextStyle(fontFamily: 'Hellix Bold 20'),
+                      ),
+                      Text(
+                        "See All",
+                        style: TextStyle(
+                          fontFamily: 'Hellix medium 14',
+                          color: Color(0xffF55A00),
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
                 SizedBox(
                   height: 5,
@@ -139,7 +165,7 @@ class _HomePageState extends State<HomePage> {
                         return Container(
                             width: MediaQuery.of(context).size.width,
                             margin: EdgeInsets.symmetric(horizontal: 5.0),
-                            decoration: BoxDecoration(color: Colors.amber),
+                            decoration: BoxDecoration(color: Color(0xffF55A00)),
                             child: Text(
                               'text $i',
                               style: TextStyle(fontSize: 16.0),
