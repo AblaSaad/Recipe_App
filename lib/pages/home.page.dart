@@ -44,7 +44,7 @@ class _HomePageState extends State<HomePage> {
                       style: TextStyle(
                           fontWeight: FontWeight.normal,
                           fontSize: 8,
-                          fontFamily: 'Hellix medium 12'),
+                          fontFamily: 'Hellix_Medium 12'),
                       textAlign: TextAlign.right,
                     ),
                   ],
@@ -57,9 +57,7 @@ class _HomePageState extends State<HomePage> {
                   children: [
                     Text(
                       'What Would You like to cook Today?',
-                      style: TextStyle(
-                          fontFamily: 'AbrilFatface-Regular 20',
-                          color: Color(0xff1F222B)),
+                      style: TextStyle(color: Color(0xff1F222B)),
                       textAlign: TextAlign.right,
                     ),
                   ],
@@ -95,9 +93,7 @@ class _HomePageState extends State<HomePage> {
                                 decoration: InputDecoration(
                                   hintText: "Search for recipes",
                                   hintStyle: TextStyle(
-                                      fontFamily: 'Hellix_Regular ',
-                                      fontSize: 12,
-                                      color: Color(0xffB2B7C6)),
+                                      fontSize: 12, color: Color(0xffB2B7C6)),
                                   border: InputBorder.none,
                                 ),
                               ),
@@ -121,28 +117,6 @@ class _HomePageState extends State<HomePage> {
                 ),
                 SizedBox(
                   height: 15,
-                ),
-                Align(
-                  alignment: Alignment.topLeft,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: const [
-                      Text(
-                        "Today's Fresh Recipes",
-                        style: TextStyle(fontFamily: 'Hellix Bold 20'),
-                      ),
-                      Text(
-                        "See All",
-                        style: TextStyle(
-                          fontFamily: 'Hellix medium 14',
-                          color: Color(0xffF55A00),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                SizedBox(
-                  height: 5,
                 ),
                 Stack(
                   children: [
@@ -213,6 +187,29 @@ class _HomePageState extends State<HomePage> {
                 ),
                 SizedBox(
                   height: 15,
+                ),
+                Align(
+                  alignment: Alignment.topLeft,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: const [
+                      Text(
+                        "Today's Fresh Recipes",
+                        style: TextStyle(
+                            fontSize: 22, fontWeight: FontWeight.w600),
+                      ),
+                      Text(
+                        "See All",
+                        style: TextStyle(
+                          fontFamily: 'Hellix medium 14',
+                          color: Color(0xffF55A00),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                SizedBox(
+                  height: 5,
                 ),
                 Align(alignment: Alignment.centerLeft, child: FreshRecipes()),
               ],

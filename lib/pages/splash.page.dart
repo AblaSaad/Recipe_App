@@ -1,10 +1,13 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:flutter/material.dart';
+import 'package:get_it/get_it.dart';
 import 'package:recipe_app_/pages/home.page.dart';
 import 'package:recipe_app_/pages/login.page.dart';
 import 'package:recipe_app_/pages/register.page.dart';
 import 'package:recipe_app_/services/prefrences.service.dart';
+import 'package:recipe_app_/widget/widget_scrollable.widget.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class SplashPage extends StatefulWidget {
   const SplashPage({super.key});
@@ -22,7 +25,7 @@ class _SplashPageState extends State<SplashPage> {
 
   void initSplash() async {
     await Future.delayed(const Duration(seconds: 3));
-    if (PrefrencesService.checkUser()) {
+    if (GetIt.I.get<SharedPreferences>().getBool('isLogin') ?? false) {
       Navigator.pushReplacement(
           context, MaterialPageRoute(builder: (_) => HomePage()));
       // go to home page
@@ -36,88 +39,71 @@ class _SplashPageState extends State<SplashPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SafeArea(
-        child: Stack(
-          children: [
-            Container(
-              width: double.infinity,
-              decoration: const BoxDecoration(
-                image: DecorationImage(
-                  image: AssetImage("assets/images/img1.jpg"),
-                  fit: BoxFit.cover,
-                ),
-              ),
-              child: Column(
-                children: [
-                  const SizedBox(height: 250.0),
-                  Image.asset('assets/images/Logo.png',
-                      height: 100, width: 150, fit: BoxFit.fill),
-                  Container(
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        children: [
-                          const SizedBox(height: 230.0),
-                          ClipRRect(
-                            borderRadius:
-                                const BorderRadius.all(Radius.circular(10)),
-                            child: SizedBox(
-                              width: 329,
-                              height: 56,
-                              child: ElevatedButton(
-                                onPressed: () {},
-                                style: ElevatedButton.styleFrom(
-                                  backgroundColor: Colors.deepOrange,
-                                ),
-                                child: const Text(
-                                  'Register',
-                                  style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 20,
-                                    fontFamily: 'Poppins',
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ),
-                          const SizedBox(
-                            height: 15,
-                          ),
-                          ClipRRect(
-                            borderRadius:
-                                const BorderRadius.all(Radius.circular(10)),
-                            child: SizedBox(
-                              width: 329,
-                              height: 56,
-                              child: TextButton(
-                                onPressed: () {},
-                                child: const Text(
-                                  'Sign In',
-                                  style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 20,
-                                    fontFamily: 'Poppins',
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ),
-                          const SizedBox(
-                            height: 15,
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                ],
+      body: Stack(
+        children: [
+          Container(
+            width: double.infinity,
+            decoration: const BoxDecoration(
+              image: DecorationImage(
+                image: AssetImage("assets/images/background.jpg"),
+                fit: BoxFit.cover,
               ),
             ),
-          ],
-        ),
+          ),
+          Container(
+            decoration: const BoxDecoration(color: Colors.black38),
+          ),
+          WidgetScrollable(
+            isColumn: true,
+            columnMainAxisAlignment: MainAxisAlignment.center,
+            widgets: [
+              Padding(
+                padding: const EdgeInsets.only(
+                    left: 50, right: 50, top: 50, bottom: 10),
+                child: Image.asset('assets/images/Logo.png'),
+              ),
+              Text(
+                'Cooking Done The Easy Way',
+                style: TextStyle(
+                    color: Color(0xffB2B7C6),
+                    fontSize: 15,
+                    fontFamily: 'Hellix'),
+              ),
+              Container(
+                height: 250,
+                child: Align(
+                  alignment: Alignment.bottomCenter,
+                  child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                          fixedSize: Size(400, 50),
+                          backgroundColor: Color(0xffF55A00)),
+                      onPressed: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (_) => const RegisterPage()));
+                      },
+                      child: Text('Register',
+                          style: TextStyle(color: Colors.white))),
+                ),
+              ),
+              SizedBox(
+                height: 15,
+              ),
+              TextButton(
+                onPressed: () {},
+                child: const Text(
+                  'Sign In',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ],
       ),
     );
   }
