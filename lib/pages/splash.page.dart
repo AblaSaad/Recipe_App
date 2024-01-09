@@ -53,10 +53,9 @@ class _SplashPageState extends State<SplashPage> {
           Container(
             decoration: const BoxDecoration(color: Colors.black38),
           ),
-          WidgetScrollable(
-            isColumn: true,
-            columnMainAxisAlignment: MainAxisAlignment.center,
-            widgets: [
+          Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
               Padding(
                 padding: const EdgeInsets.only(
                     left: 50, right: 50, top: 50, bottom: 10),
@@ -69,26 +68,30 @@ class _SplashPageState extends State<SplashPage> {
                     fontSize: 15,
                     fontFamily: 'Hellix'),
               ),
-              Container(
-                height: 250,
-                child: Align(
-                  alignment: Alignment.bottomCenter,
-                  child: ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                          fixedSize: Size(400, 50),
-                          backgroundColor: Color(0xffF55A00)),
-                      onPressed: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (_) => const RegisterPage()));
-                      },
-                      child: Text('Register',
-                          style: TextStyle(color: Colors.white))),
-                ),
+            ],
+          ),
+          Column(
+            mainAxisAlignment: MainAxisAlignment.end,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      fixedSize: Size(400, 50),
+                      backgroundColor: Color(0xffF55A00),
+                    ),
+                    onPressed: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (_) => const RegisterPage()));
+                    },
+                    child: Text('Register',
+                        style: TextStyle(color: Colors.white))),
               ),
               SizedBox(
-                height: 15,
+                height: 8,
               ),
               TextButton(
                 onPressed: () {},

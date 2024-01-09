@@ -41,7 +41,7 @@ class _RegisterPageState extends State<RegisterPage> {
       body: Stack(
         children: [
           Container(
-            decoration: BoxDecoration(
+            decoration: const BoxDecoration(
                 image: DecorationImage(
                     image: AssetImage("assets/images/background.jpg"),
                     fit: BoxFit.cover)),
@@ -60,7 +60,7 @@ class _RegisterPageState extends State<RegisterPage> {
                       left: 50, right: 50, top: 50, bottom: 25),
                   child: Image.asset('assets/images/Logo.png'),
                 ),
-                Text(
+                const Text(
                   'Register',
                   style: TextStyle(color: Colors.white),
                 ),
@@ -71,8 +71,8 @@ class _RegisterPageState extends State<RegisterPage> {
                   padding: const EdgeInsets.only(left: 25, right: 25),
                   child: TextFormField(
                     controller: emailController,
-                    style: TextStyle(color: Colors.white),
-                    decoration: InputDecoration(
+                    style: const TextStyle(color: Colors.white),
+                    decoration: const InputDecoration(
                       label: Text(
                         'Full Name',
                         style: TextStyle(
@@ -92,8 +92,8 @@ class _RegisterPageState extends State<RegisterPage> {
                   padding: const EdgeInsets.only(left: 25, right: 25),
                   child: TextFormField(
                     controller: emailController,
-                    style: TextStyle(color: Colors.white),
-                    decoration: InputDecoration(
+                    style: const TextStyle(color: Colors.white),
+                    decoration: const InputDecoration(
                       label: Text(
                         'Email Address',
                         style: TextStyle(
@@ -120,7 +120,7 @@ class _RegisterPageState extends State<RegisterPage> {
                           style: TextStyle(
                               color: Color.fromARGB(130, 245, 245, 245)),
                         ),
-                        prefixIcon: Icon(Icons.lock_outline),
+                        prefixIcon: const Icon(Icons.lock_outline),
                         suffixIcon: InkWell(
                           onTap: () => toggleObsecure(),
                           child: Icon(obsecureText
@@ -140,8 +140,8 @@ class _RegisterPageState extends State<RegisterPage> {
                 ),
                 ElevatedButton(
                     style: ElevatedButton.styleFrom(
-                        fixedSize: Size(400, 50),
-                        backgroundColor: Color(0xffF55A00)),
+                        fixedSize: const Size(400, 50),
+                        backgroundColor: const Color(0xffF55A00)),
                     onPressed: () {
                       if (!(fromKey.currentState?.validate() ?? false)) {
                         GetIt.I
@@ -154,7 +154,7 @@ class _RegisterPageState extends State<RegisterPage> {
                                 builder: (_) => const LoginPage()));
                       }
                     },
-                    child: Text('Register',
+                    child: const Text('Register',
                         style: TextStyle(color: Colors.white))),
                 const SizedBox(
                   height: 15,
@@ -168,21 +168,21 @@ class _RegisterPageState extends State<RegisterPage> {
               child: Align(
                 alignment: Alignment.bottomCenter,
                 child: Padding(
-                    padding: EdgeInsets.only(top: 8),
+                    padding: const EdgeInsets.only(top: 8),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       mainAxisSize: MainAxisSize.min,
                       children: [
-                        Text("Already have an account?",
+                        const Text("Already have an account?",
                             style: TextStyle(color: Colors.white)),
                         TextButton(
                           onPressed: () {
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (_) => RegisterPage()));
+                                    builder: (_) => const RegisterPage()));
                           },
-                          child: Text(
+                          child: const Text(
                             'Log In',
                             style: TextStyle(color: Color(0xffF55A00)),
                           ),

@@ -1,8 +1,10 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 
+import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
-import 'package:dots_indicator/dots_indicator.dart';
+import 'package:flutter/services.dart';
+import 'package:recipe_app_/models/ad.model.dart';
 import 'package:recipe_app_/widget/fresh_recipes_widget.dart';
 
 class HomePage extends StatefulWidget {
@@ -15,7 +17,24 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   var sliderIndex = 0;
   CarouselController carouselControllerEx = CarouselController();
-  var listValue = [1, 2, 3, 4, 5];
+
+  List<Ad> adsList = [];
+
+  void getAds() async {
+    var adsData = await rootBundle.loadString('assets/data/sample.json');
+    var dataDecoded =
+        List<Map<String, dynamic>>.from(jsonDecode(adsData)['ads']);
+
+    adsList = dataDecoded.map((e) => Ad.fromJson(e)).toList();
+    setState(() {});
+  }
+
+  @override
+  void initState() {
+    getAds();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -135,15 +154,35 @@ class _HomePageState extends State<HomePage> {
                           setState(() {});
                         },
                       ),
-                      items: listValue.map((i) {
-                        return Container(
-                            width: MediaQuery.of(context).size.width,
-                            margin: EdgeInsets.symmetric(horizontal: 5.0),
-                            decoration: BoxDecoration(color: Color(0xffF55A00)),
-                            child: Text(
-                              'text $i',
-                              style: TextStyle(fontSize: 16.0),
-                            ));
+                      items: adsList.map((ad) {
+                        return Stack(
+                          children: [
+                            Container(
+                              width: MediaQuery.of(context).size.width,
+                              margin: EdgeInsets.symmetric(horizontal: 5.0),
+                              decoration: BoxDecoration(
+                                  image: DecorationImage(
+                                      fit: BoxFit.fitWidth,
+                                      image: NetworkImage(ad.image!))),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Container(
+                                decoration: BoxDecoration(
+                                    color: Colors.black38,
+                                    borderRadius: BorderRadius.circular(25)),
+                                child: Padding(
+                                  padding: const EdgeInsets.all(4.0),
+                                  child: Text(
+                                    ad.title.toString(),
+                                    style: const TextStyle(
+                                        fontSize: 16.0, color: Colors.white),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
+                        );
                       }).toList(),
                     ),
                     Center(
@@ -169,21 +208,6 @@ class _HomePageState extends State<HomePage> {
                       ),
                     ),
                   ],
-                ),
-                DotsIndicator(
-                  dotsCount: listValue.length,
-                  position: sliderIndex,
-                  onTap: (position) async {
-                    await carouselControllerEx.animateToPage(position);
-                    sliderIndex = position;
-                    setState(() {});
-                  },
-                  decorator: DotsDecorator(
-                    size: const Size.square(9.0),
-                    activeSize: const Size(18.0, 9.0),
-                    activeShape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(5.0)),
-                  ),
                 ),
                 SizedBox(
                   height: 15,
