@@ -5,6 +5,8 @@ import 'package:dots_indicator/dots_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:recipe_app_/cubit/ads_cubit.dart';
 import 'package:recipe_app_/models/ad.model.dart';
 import 'package:recipe_app_/widget/fresh_recipes_widget.dart';
 
@@ -19,21 +21,14 @@ class _HomePageState extends State<HomePage> {
   var sliderIndex = 0;
   CarouselController carouselControllerEx = CarouselController();
 
-  List<Ad> adsList = [];
-
-  void getAds() async {
-    var adsData = await rootBundle.loadString('assets/data/sample.json');
-    var dataDecoded =
-        List<Map<String, dynamic>>.from(jsonDecode(adsData)['ads']);
-
-    adsList = dataDecoded.map((e) => Ad.fromJson(e)).toList();
-    setState(() {});
-  }
-
   @override
   void initState() {
-    getAds();
+    init();
     super.initState();
+  }
+
+  void init() async {
+    await BlocProvider.of<AdsCubit>(context).getAds();
   }
 
   @override
@@ -138,76 +133,102 @@ class _HomePageState extends State<HomePage> {
                 SizedBox(
                   height: 15,
                 ),
-                Stack(
+                Column(
                   children: [
-                    CarouselSlider(
-                      carouselController: carouselControllerEx,
-                      options: CarouselOptions(
-                        height: 200.0,
-                        autoPlay: true,
-                        viewportFraction: 0.75,
-                        enlargeCenterPage: true,
-                        enlargeFactor: 0.3,
-                        enlargeStrategy: CenterPageEnlargeStrategy.height,
-                        onPageChanged: (index, _) {
-                          sliderIndex = index;
-
-                          setState(() {});
-                        },
-                      ),
-                      items: adsList.map((ad) {
-                        return Stack(
+                    BlocBuilder<AdsCubit, AdsState>(builder: (context, state) {
+                      if (state is AdsLoading) {
+                        return Center(child: CircularProgressIndicator());
+                      } else if (state is AdsInitial) {
+                        return Column(
                           children: [
-                            Container(
-                              width: MediaQuery.of(context).size.width,
-                              margin: EdgeInsets.symmetric(horizontal: 5.0),
-                              decoration: BoxDecoration(
-                                  image: DecorationImage(
-                                      fit: BoxFit.fitWidth,
-                                      image: NetworkImage(ad.image!))),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Container(
-                                decoration: BoxDecoration(
-                                    color: Colors.black38,
-                                    borderRadius: BorderRadius.circular(25)),
-                                child: Padding(
-                                  padding: const EdgeInsets.all(4.0),
-                                  child: Text(
-                                    ad.title.toString(),
-                                    style: const TextStyle(
-                                        fontSize: 16.0, color: Colors.white),
+                            Stack(
+                              children: [
+                                CarouselSlider(
+                                  carouselController: carouselControllerEx,
+                                  options: CarouselOptions(
+                                    height: 200.0,
+                                    autoPlay: true,
+                                    viewportFraction: 0.75,
+                                    enlargeCenterPage: true,
+                                    enlargeFactor: 0.3,
+                                    enlargeStrategy:
+                                        CenterPageEnlargeStrategy.height,
+                                    onPageChanged: (index, _) {
+                                      sliderIndex = index;
+
+                                      setState(() {});
+                                    },
+                                  ),
+                                  items: state.ads.map((ad) {
+                                    return Stack(
+                                      children: [
+                                        Container(
+                                          width:
+                                              MediaQuery.of(context).size.width,
+                                          margin: EdgeInsets.symmetric(
+                                              horizontal: 5.0),
+                                          decoration: BoxDecoration(
+                                              image: DecorationImage(
+                                                  fit: BoxFit.fitWidth,
+                                                  image:
+                                                      NetworkImage(ad.image!))),
+                                        ),
+                                        Padding(
+                                          padding: const EdgeInsets.all(8.0),
+                                          child: Container(
+                                            decoration: BoxDecoration(
+                                                color: Colors.black38,
+                                                borderRadius:
+                                                    BorderRadius.circular(25)),
+                                            child: Padding(
+                                              padding:
+                                                  const EdgeInsets.all(4.0),
+                                              child: Text(
+                                                ad.title.toString(),
+                                                style: const TextStyle(
+                                                    fontSize: 16.0,
+                                                    color: Colors.white),
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+                                    );
+                                  }).toList(),
+                                ),
+                                Center(
+                                  heightFactor: 5,
+                                  child: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      IconButton(
+                                        onPressed: () {
+                                          // Use the controller to change the current page
+                                          carouselControllerEx.previousPage();
+                                        },
+                                        icon: Icon(
+                                            Icons.arrow_back_ios_new_outlined),
+                                      ),
+                                      IconButton(
+                                        onPressed: () {
+                                          // Use the controller to change the current page
+                                          carouselControllerEx.nextPage();
+                                        },
+                                        icon: Icon(
+                                            Icons.arrow_forward_ios_outlined),
+                                      ),
+                                    ],
                                   ),
                                 ),
-                              ),
+                              ],
                             ),
                           ],
                         );
-                      }).toList(),
-                    ),
-                    Center(
-                      heightFactor: 5,
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          IconButton(
-                            onPressed: () {
-                              // Use the controller to change the current page
-                              carouselControllerEx.previousPage();
-                            },
-                            icon: Icon(Icons.arrow_back_ios_new_outlined),
-                          ),
-                          IconButton(
-                            onPressed: () {
-                              // Use the controller to change the current page
-                              carouselControllerEx.nextPage();
-                            },
-                            icon: Icon(Icons.arrow_forward_ios_outlined),
-                          ),
-                        ],
-                      ),
-                    ),
+                      } else {
+                        return SizedBox.shrink();
+                      }
+                    })
                   ],
                 ),
                 SizedBox(

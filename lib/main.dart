@@ -1,4 +1,9 @@
+import 'dart:js';
+
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:recipe_app_/cubit/ads_cubit.dart';
+
 import 'package:recipe_app_/pages/splash.page.dart';
 import 'package:recipe_app_/services/prefrences.service.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -19,7 +24,10 @@ void main() async {
     print(
         '=========================Error In init Prefrences ${e}========================');
   }
-  runApp(const MyApp());
+  runApp(BlocProvider<AdsCubit>(
+    create: (context) => AdsCubit(),
+    child: MyApp(),
+  ));
 }
 
 class MyApp extends StatelessWidget {
